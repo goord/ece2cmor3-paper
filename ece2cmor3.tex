@@ -1,16 +1,38 @@
-\documentclass[a4paper,10pt]{article}
-\usepackage[textwidth=15cm]{geometry}
+\documentclass[procedia]{easychair}
+% \usepackage[textwidth=15cm]{geometry}
 \usepackage[utf8]{inputenc}
-\usepackage[affil-it]{authblk}
+%\usepackage[affil-it]{authblk}
 \usepackage{graphicx}
 \usepackage{cite}
 \usepackage{url}
 
+% This provides the \BibTeX macro
+\usepackage{doc}
+\usepackage{makeidx}
+
 %opening
-\title{Parallel Post-Processing of the EC-Earth Climate Model Output}
-\author[1]{Gijs van den Oord}
-\author[1]{Rena Bakhshi}
-\affil[1]{Netherlands eScience Center}
+% \author[1]{Gijs van den Oord}
+% \author[1]{Rena Bakhshi}
+% \affil[1]{Netherlands eScience Center}
+
+\title{Parallel Post-Processing of\\ the EC-Earth Climate Model Output}
+\titlerunning{Parallel Post-Processing of the EC-Earth Climate Model Output}
+
+\author{
+    Gijs van den Oord%\inst{1}
+\and
+    Rena Bakhshi%\inst{1}
+}
+ 
+\institute{
+  Netherlands eScience Center,
+  Amsterdam, The Netherlands\\
+  \email{\{g.vandenoord,r.bakhshi\}@esciencecenter.nl}
+\\
+ }
+ 
+\authorrunning{van den Oord and Bakhshi}
+
 \begin{document}
 
 \maketitle
@@ -128,6 +150,18 @@ be a necessary step to increase space and time resolutions further in future
 climate simulations. Such a software component will have to contain highly 
 optimized grid mapping algorithms and support parallel processing of multiple 
 atmospheric fields.
-\bibliography{citations.bib}{}
+
+
+%------------------------------------------------------------------------------
+% Refs:
+%
+\label{sect:bib}
 \bibliographystyle{plain}
+%\bibliographystyle{alpha}
+%\bibliographystyle{unsrt}
+%\bibliographystyle{abbrv}
+\bibliography{citations}
+
+%------------------------------------------------------------------------------
+
 \end{document}
