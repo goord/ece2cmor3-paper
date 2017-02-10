@@ -121,6 +121,7 @@ computation time by
 exploiting the parallel nature of the problem of processing many variables at 
 once, the problem we address in this paper.
 
+
 \section{Design}
 The EC-Earth model output for the PRIMAVERA runs consist of GRIB-files produced 
 by the atmosphere component, the Integrated Forecasting System (IFS), and 
@@ -188,14 +189,15 @@ six-hourly data takes 80GB of disk space, whereas the post-processed temporary
 netCDF files together occupy 68GB. We have run this test on the ECMWF Cray XC40, 
 which consists of intel Xeon nodes of the broadwell generation with 18 physical 
 cores per node and 128GB of DDR4 memory. As temporary storage we use the scratch 
-drive, managed by the parallel LUSTRE file system.\\
-\\
+drive, managed by the parallel LUSTRE file system.
+
 \begin{figure}[b]
  \centering
  \includegraphics[width=0.5\textwidth]{speedup_chart.png}
  \caption{Speedup of the post-processing workload with multiple threads 
 processing independent climate fields.}
 \end{figure}
+
 The single-threaded version takes 2.5 hours to finish processing a month 
 six-hourly atmosphere data on this system, which is much slower than the 
 simulation itself. By launching 16 worker threads we can achieve a speedup of 
@@ -215,7 +217,6 @@ be a necessary step to increase space and time resolutions further in future
 climate simulations. Such a software component will have to contain highly 
 optimized grid mapping algorithms and support parallel processing of multiple 
 atmospheric fields.
-
 
 %------------------------------------------------------------------------------
 % Refs:
