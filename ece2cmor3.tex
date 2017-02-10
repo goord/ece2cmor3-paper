@@ -39,6 +39,8 @@
 
 \maketitle
 
+\keywords{climate models, CMOR, parallel post-processing}
+
 \begin{abstract}
 The increasing resolution of climate and weather models has resulted in a fast 
 growth of their data production. This calls for a modern and efficient 
@@ -133,11 +135,11 @@ are part of our parallel post-processing tool. Figure~\ref{fig:design} summarize
 % 
 The EC-Earth model output for the PRIMAVERA runs consist of GRIB-files produced 
 by the atmosphere component, the Integrated Forecasting System (IFS), and 
-netCDF files produced by the coupled ocean model NEMO \cite{NEMO}. The latter 
+netCDF files produced by the coupled ocean model NEMO~\cite{NEMO}. The latter 
 component 
 contains an online post-processing capability, provided by the XIOS library. The 
 atmospheric output is post-processed with existing technology, the widely used 
-Climate Data Operators (CDO) \cite{CDO} to produce netCDF files for all 
+Climate Data Operators (CDO)~\cite{CDO} to produce netCDF files for all 
 requested 
 variables. After this step, all variables are extracted from netCDF and sent to 
 the CMOR3 library \cite{CMOR} which handles the reformatting to CMIP 
