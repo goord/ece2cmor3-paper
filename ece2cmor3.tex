@@ -5,6 +5,8 @@
 \usepackage{graphicx}
 \usepackage{cite}
 \usepackage{url}
+% \usepackage{caption}
+% \usepackage{subcaption}
 
 % This provides the \BibTeX macro
 \usepackage{doc}
@@ -89,7 +91,7 @@ model.
 The Earth System Model (ESM) EC-Earth \cite{ECEARTHv22} is widely used in the European climate science research. 
 It consists of several components (atmosphere, ocean, land, etc.) coupled 
 through exchange of heat, moisture and momentum fields. 
-Over the last years, ESMs increased in complexity, in terms of spatial resolution, number of components and numerical precision. 
+Over the last years, ESMs increased in complexity, in terms of spatial resolution, number of components, and numerical precision. 
 %The increasing complexity poses several challenges.
 %
 The parallelized numerical algorithms that form the backbone of the climate models
@@ -118,27 +120,34 @@ science community~\cite{eyri:2016b}.
 %Our solution: parallel post-processing of Earth system models output. 
 It is therefore important to minimize the 
 computation time by 
-exploiting the parallel nature of the problem of processing many variables at 
-once, the problem we address in this paper.
+exploiting the parallel nature of the problem of processing many variables at once.
+This is the problem we address in this paper.  
+%what do we do in this paper?
+We describe the design of our post-processing package \texttt{ece2cmor3}, implemented in Python, and 
+we present benchmarking results showing the improvement in workload. 
 
 
 \section{Design}
+
+In this section we describe the tools and components that 
+are part of our parallel post-processing tool. Figure~\ref{fig:design} summarizes the data flow in \texttt{ece2cmor3}. 
+% 
 The EC-Earth model output for the PRIMAVERA runs consist of GRIB-files produced 
 by the atmosphere component, the Integrated Forecasting System (IFS), and 
 netCDF files produced by the coupled ocean model NEMO \cite{NEMO}. The latter 
 component 
-contains online post-processing capability, provided by the XIOS library. The 
+contains an online post-processing capability, provided by the XIOS library. The 
 atmospheric output is post-processed with existing technology, the widely used 
 Climate Data Operators (CDO) \cite{CDO} to produce netCDF files for all 
 requested 
 variables. After this step, all variables are extracted from netCDF and sent to 
 the CMOR3 library \cite{CMOR} which handles the reformatting to CMIP 
 conventions. Using the 
-python bindings of these tools allows us to avoid complex bash scripts and 
+Python bindings of these tools allows us to avoid complex Bash scripts and 
 helps us to create a maintainable codebase.
 
 The CMOR library rewrites input data according to a set of rules that are 
-encoded in a set of json-files, referred to as \emph{CMOR-tables}. These tables 
+encoded in a set of JSON-files, referred to as \emph{CMOR-tables}. These tables 
 contain information about variable names and descriptions, but also the type of 
 data reduction that has been applied to high-frequency instantaneous fields. We 
 identify the workload as a set of independent tasks that can be executed in 
@@ -153,70 +162,97 @@ threads are stored as temporary netCDF files (keeping them in memory is
 currently not supported by CDO), which serve as input for the output rewriting 
 step in CMOR. The software supports setting a limit on the diskspace used by 
 these temporary files: after reaching this threshold, the batch of processed 
-variables will be cmorized and the temporary files are removed.
+variables will be CMORized and the temporary files are removed.
 
 \begin{figure}[ht]
  \centering
  \includegraphics[width=\textwidth,clip]{ece2cmor3flowv3.png}
  \caption{Graph of the data flow in the ece2cmor3 program. The parallelized 
 processing is highlighted in the violet box.}
+\label{fig:design}
 \end{figure}
 
 Throughout the code, hard-coded assumptions about the nature of the resulting 
 variables are kept to a minimum. This is important because all information is 
 contained in the input tables, which tend to be volatile and will differ for 
-various intercomparison studies. Finally we note that a significant speedup has 
+various MIPs studies. Finally we note that a significant speedup has 
 been achieved by optimizing the ordering of the CDO operators for data 
 reduction. A dynamical field will typically be processed using (i) selection 
 criteria for extracting data from the model output, (ii) time aggregation 
 operators mapping to lower time resolution and (iii) a grid projection operator 
 mapping the data to a regular Gaussian grid\footnote{IFS output is usually 
-defined on a reduced gaussian grid or in a spectral representation}. The latter 
+defined on a reduced Gaussian grid or in a spectral representation}. The latter 
 step is costly for high-resolution 3D fields, but it is a linear operation 
 (matrix multiplication) which commutes with linear time aggregation operators 
 such as averaging. Hence it can often be applied as the last step on the 
 reduced data.
 
-\section{Results}
+\section{Benchmark results}
 The result of our effort is the open source python package \texttt{ece2cmor3}, 
 which can be found at \texttt{https://github.com/goord/ece2cmor3}. This code is 
 also included in the PRIMAVERA branch of EC-Earth 3.2 and will soon be merged 
 to the EC-Earth trunk as a successor of the existing \texttt{ece2cmor} code. 
 For benchmarking we focus upon the post-processing of 37 six-hourly 
-three-dimensional fields, which constitutes the bulk of the output data 
-processing time within the PRIMAVERA project. A single month of 
+three-dimensional fields (see, e.g., humidity field in Fig.~\ref{fig:hum}), which constitutes the bulk of the output data 
+processing time within the PRIMAVERA project~\footnote{The fields are geopotential, temperature, 
+  $u$- and $v$-components of wind, vertical velocity, relative humidity, 
+  specific humidity and cloud coverage from the IFS component. 
+  Various projections upon pressure levels/model levels and various 
+  averaging operations make it to 37 post-processing tasks.}.
+  
+  A single month of 
 six-hourly data takes 80GB of disk space, whereas the post-processed temporary  
 netCDF files together occupy 68GB. We have run this test on the ECMWF Cray XC40, 
 which consists of intel Xeon nodes of the broadwell generation with 18 physical 
 cores per node and 128GB of DDR4 memory. As temporary storage we use the scratch 
 drive, managed by the parallel LUSTRE file system.
 
-\begin{figure}[b]
- \centering
- \includegraphics[width=0.5\textwidth]{speedup_chart.png}
+\begin{figure}[h]
+\centering
+\begin{minipage}[b]{.45\textwidth}
+  \centering
+   \vspace*{1.5cm}
+ \includegraphics[width=1\textwidth]{hur.png}
+ \caption{An example of 3D field calculated from CMIP6 models: relative humidity at the bottom model 
+   layer monthly average over January 1990.}
+\label{fig:hum}
+\end{minipage}%
+\hspace{0.6cm}
+\begin{minipage}[b]{.45\textwidth}
+  \centering
+ \includegraphics[width=1\textwidth]{speedup_chart.png}
+  \vspace*{-0.75cm}
  \caption{Speedup of the post-processing workload with multiple threads 
 processing independent climate fields.}
+\label{fig:speedup}
+\end{minipage}
 \end{figure}
+
 
 The single-threaded version takes 2.5 hours to finish processing a month 
 six-hourly atmosphere data on this system, which is much slower than the 
 simulation itself. By launching 16 worker threads we can achieve a speedup of 
-almost a factor of eight. The scaling behavior can be explained by the finite 
+almost a factor of eight (see Fig.~\ref{fig:speedup}). The scaling behavior can be explained by the finite 
 bandwidth to the temporary storage and the fact that CDO itself has been 
 configured to run four threads per processing task. Eventually we can also 
 partition the workload into multiple chunks of variables that can be executed 
 on different nodes if further acceleration is needed.
+
+
 \section{Conclusion and Outlook}
+
 We have written a package for processing the output of EC-Earth that is 
 flexible, maintainable and achieves a good performance by parallelizing the 
-most time-consuming part of the workload. It is expected to perform its duty in 
-EC-Earth for the upcoming CMIP6 model runs. However, this exercise would have 
-been avoided if the atmosphere model had been linked to an on-line 
-postprocessing library such as XIOS or some library version of CDO. This will 
+most time-consuming part of the workload. Our benchmark results show that \texttt{ece2cmor3}
+is capable to perform its duty in EC-Earth for the upcoming CMIP6 model runs. For the speedup, it would be 
+useful if the atmosphere model is linked to an on-line postprocessing library such as XIOS or some library version of CDO. This will 
 be a necessary step to increase space and time resolutions further in future 
 climate simulations. Such a software component will have to contain highly 
-optimized grid mapping algorithms and support parallel processing of multiple 
+optimized grid mapping algorithms, and support parallel processing of multiple 
 atmospheric fields.
+
+
+% As future work we plan to deploy ... on the production clusters
 
 %------------------------------------------------------------------------------
 % Refs:
