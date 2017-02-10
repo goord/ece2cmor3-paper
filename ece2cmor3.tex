@@ -97,7 +97,7 @@ can nowadays be run at unprecedented scales thanks to the
 growing capability of supercomputers. 
 Optimized fluid-dynamical and atmospheric codes that benefit from the continuous 
 increase of processor cache size, instruction vector length and number of cores per die enable us to explore dynamical systems at higher 
-spatial and temporal resolution, while avoiding a penalty in time and energy consumption. For example, it is feasible to let coupled atmospheric-ocean 
+spatial and temporal resolutions, while avoiding a penalty in time and energy consumption. For example, it is feasible to let coupled atmospheric-ocean 
 models simulate 100 years of climate evolution at a resolution of about 10 km, as is currently carried out within the PRIMAVERA joint effort 
 \cite{PRIMAVERA} by various climate modeling groups among which the EC-Earth consortium.
 
@@ -110,8 +110,8 @@ and frequent disk access, for example when computing time averages of meteorolog
 Nonetheless it often remains preferred to 
 have a separate post-processing step to keep the high-frequency model output accessible for further studies\footnote{This could be also achieved by a 
 library aggregating the data in memory during the model run, but this functionality is absent in the atmosphere model in EC-Earth.}. 
-Indeed, many climate models have their observational and analysis data output post-processed into a standardized format so that it can be used for comparison with climate models in
-the same way and independent of the platform on which they were executed~\cite{CMIP6}.
+Indeed, many climate models have their observational and analysis data output post-processed into so-called CMIP standardized format such that it can be used for comparison with climate models in
+the same way and independent of the platform on which the models were executed~\cite{CMIP6}.
  
 Meanwhile, the number of requested post-processed fields has also increased significantly for the next generation of model intercomparison projects (MIPs) in the climate 
 science community~\cite{eyri:2016b}.
