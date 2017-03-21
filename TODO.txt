@@ -1,0 +1,36 @@
+
+
+TODO: 
+
+* Why is the programming language Python chosen in particular? This should be argued better.
+
+* To better motivate and prepare a reader, a quick introduction of the typical post-processing tasks, especially those requiring substantial computation, should be added in the beginning of the text. (The authors have only mentioned "computing time averages of meteorological gridpoint fields" at the bottom of page 1.)
+
+* Some form of thread-based programming has obviously been adopted by the authors, but important details are absent. For example,  which threading library (supposedly in Python) is used? Also, what is a "synchronized queue" mentioned on page 2?
+
+* Identification of workload as a set of independent tasks obviously lays the foundation of author's parallel processing strategy. However, how is the identification done? (Automatic or manual?) How many independent tasks will arise (how does the number depend on a given data set)?
+
+* At the end of the abstract and also end of Section 1, what does "the improvement in the workload" actually refer to later?
+
+* Page 1, "avoiding a penalty in time and energy consumption" needs a better explanation. While wall-clock time usage will surely be reduced due to parallel post-processing, what is the connection to reduced energy consumption?
+
+* Page 1, "optimizing the ordering of the CDO operators" should be commented with respect to whether changing the order will have any (considerable) changes in the final processed results. (In other words, is it "safe" to change the order?)
+
+* Page 3, "python" -> "Python"
+* Page 3, "which constitutes" -> "which constitute"
+* Page 3, "intel" -> "Intel"
+
+
+** The length of the manuscript should be longer by adding more examinations of the results of the benchmark test and more discussions. The current manuscript contains too few descriptions about the benchmark test and related discussions, that is, Section 3 is too short.
+
+** The figures are incomplete or uninformative. For example, readers unfamiliar with HPC cannot understand which ones in Figure 1 are "GRIB-files" mentioned in Section 2, Line 3. I don't think Figure 2 is needed because it lacks an originality, and because the global distribution of humidity does not relate directly to the scope of this manuscript. It seems that a colorful map unnecessarily dresses the manuscript. Instead, more figures related to the examinations of the benchmark test should be added. The current manuscript only shows Figure 3 for the benchmark test, which is needed but not so interesting.
+
+* Section 4, Line 3: "capable to perform" -> "capable of performing"
+
+** Main contribution of this paper is to find executable independent tasks directed by the CMOR-table and to execute tasks by appropriate ordering, then to achieve the short execution time. Thus, the key is the algorithms to find the independent tasks and to order those tasks, but the detailed description is omitted. 
+
+** In the field of treating large-scale dataset like climate science, the thread parallelism gives limited performance because of the size of dataset. You should take into consideration to employ process or hybrid parallel approach.
+
+* The letter size of Fig.3 is too small, it is difficult to see.
+
+
