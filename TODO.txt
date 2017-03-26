@@ -8,9 +8,13 @@ TODO:
   requiring substantial computation, should be added in the beginning of the text. (The authors have only mentioned
   "computing time averages of meteorological gridpoint fields" at the bottom of page 1.) -> OK
 
-* Some form of thread-based programming has obviously been adopted by the authors, but important details are absent. For example,  which threading library (supposedly in Python) is used? Also, what is a "synchronized queue" mentioned on page 2?
+* Some form of thread-based programming has obviously been adopted by the authors, but important details are absent. For
+  example,  which threading library (supposedly in Python) is used? Also, what is a "synchronized queue" mentioned on
+  page 2? -> OK
 
-* Identification of workload as a set of independent tasks obviously lays the foundation of author's parallel processing strategy. However, how is the identification done? (Automatic or manual?) How many independent tasks will arise (how does the number depend on a given data set)?
+* Identification of workload as a set of independent tasks obviously lays the foundation of author's parallel processing
+  strategy. However, how is the identification done? (Automatic or manual?) How many independent tasks will arise (how
+  does the number depend on a given data set)? -> OK
 
 * At the end of the abstract and also end of Section 1, what does "the improvement in the workload" actually refer to
   later? -> OK

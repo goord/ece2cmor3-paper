@@ -183,17 +183,21 @@ contain information about variable names and descriptions, but also the type of
 data reduction that has been applied to high-frequency instantaneous fields. We 
 identify the workload as a set of independent tasks that can be executed in 
 parallel. Each task consists of a target, a variable in one of the CMOR-tables, 
-and a source, a variable inside one of the model output files. The tasks are 
-constructed from a given set of desired targets and a fixed lookup table 
-containing pairs of source variables and possible targets. The ocean tasks 
-are assumed to be post-processed and are sent to the CMOR library right away. 
-The atmosphere tasks are grouped in a synchronized queue, and multiple worker 
-threads perform the post-processing step. The results of the post-processing 
-threads are stored as temporary netCDF files (keeping them in memory is 
-currently not supported by CDO), which serve as input for the output rewriting 
-step in CMOR. The software supports setting a limit on the diskspace used by 
-these temporary files: after reaching this threshold, the batch of processed 
-variables will be CMORized and the temporary files are removed.
+and a source, a variable inside one of the model output files. The tasks, which 
+are all considered pairwise independent, are automatically constructed from a 
+user-defined set of desired targets and a fixed lookup table containing pairs of 
+source variables and possible targets. Hence the user input list of targets 
+completely determines the workload. 
+
+The ocean tasks are assumed to be post-processed already and are sent to the 
+CMOR library right away. The atmosphere tasks are grouped in a thread-safe 
+queue, and a thread pool is used to perform the post-processing of these 
+tasks concurrently. The results of the post-processing worker threads are 
+stored as temporary netCDF files (keeping them in memory is currently not 
+supported by CDO), which serve as input for the output rewriting step in CMOR. 
+The software supports chunking the tasks to limit the amount of disk space used 
+by these temporary files. We use Python's standard threading package for the 
+parallel execution of the worker threads.
 
 \begin{figure}[ht]
  \centering
