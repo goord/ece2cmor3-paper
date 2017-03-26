@@ -4,7 +4,9 @@ TODO:
 
 * Why is the programming language Python chosen in particular? This should be argued better. -> OK
 
-* To better motivate and prepare a reader, a quick introduction of the typical post-processing tasks, especially those requiring substantial computation, should be added in the beginning of the text. (The authors have only mentioned "computing time averages of meteorological gridpoint fields" at the bottom of page 1.)
+* To better motivate and prepare a reader, a quick introduction of the typical post-processing tasks, especially those
+  requiring substantial computation, should be added in the beginning of the text. (The authors have only mentioned
+  "computing time averages of meteorological gridpoint fields" at the bottom of page 1.) -> OK
 
 * Some form of thread-based programming has obviously been adopted by the authors, but important details are absent. For example,  which threading library (supposedly in Python) is used? Also, what is a "synchronized queue" mentioned on page 2?
 
@@ -19,7 +21,7 @@ TODO:
 
 * Page 3, "python" -> "Python"
 * Page 3, "which constitutes" -> "which constitute"
-* Page 3, "intel" -> "Intel"
+* Page 3, "intel" -> "Intel" -> OK
 
 
 ** The length of the manuscript should be longer by adding more examinations of the results of the benchmark test and more discussions. The current manuscript contains too few descriptions about the benchmark test and related discussions, that is, Section 3 is too short.
