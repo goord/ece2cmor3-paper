@@ -47,7 +47,8 @@ growth of their data production. This calls for a modern and efficient
 approach to the post-processing of these data. To this end, we have developed a new software package 
 in Python that exploits the parallel nature of the post-processing workload to process the output 
 of EC-Earth, a coupled atmosphere-ocean model. We describe the design of our post-processing package, and present 
-benchmark results showing the improvement in the workload.
+benchmark results showing the achieved speedup with increasing the number of 
+parallel threads.
 \end{abstract}
 
 \section{Introduction}
@@ -125,7 +126,8 @@ exploiting the parallel nature of the problem of processing many variables at on
 This is the problem we address in this paper.  
 %what do we do in this paper?
 We describe the design of our post-processing package \texttt{ece2cmor3}, implemented in Python, and 
-we present benchmarking results showing the improvement in workload. 
+we present benchmarking results showing the achieved speedup by increasing the 
+number of parallel threads.
 
 
 \section{Design}

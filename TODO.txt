@@ -10,7 +10,8 @@ TODO:
 
 * Identification of workload as a set of independent tasks obviously lays the foundation of author's parallel processing strategy. However, how is the identification done? (Automatic or manual?) How many independent tasks will arise (how does the number depend on a given data set)?
 
-* At the end of the abstract and also end of Section 1, what does "the improvement in the workload" actually refer to later?
+* At the end of the abstract and also end of Section 1, what does "the improvement in the workload" actually refer to
+  later? -> OK
 
 * Page 1, "avoiding a penalty in time and energy consumption" needs a better explanation. While wall-clock time usage will surely be reduced due to parallel post-processing, what is the connection to reduced energy consumption?
 
