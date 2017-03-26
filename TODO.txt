@@ -2,7 +2,7 @@
 
 TODO: 
 
-* Why is the programming language Python chosen in particular? This should be argued better.
+* Why is the programming language Python chosen in particular? This should be argued better. -> OK
 
 * To better motivate and prepare a reader, a quick introduction of the typical post-processing tasks, especially those requiring substantial computation, should be added in the beginning of the text. (The authors have only mentioned "computing time averages of meteorological gridpoint fields" at the bottom of page 1.)
 

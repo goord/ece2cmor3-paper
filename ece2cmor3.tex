@@ -143,9 +143,11 @@ Climate Data Operators (CDO)~\cite{CDO} to produce netCDF files for all
 requested 
 variables. After this step, all variables are extracted from netCDF and sent to 
 the CMOR3 library \cite{CMOR} which handles the reformatting to CMIP 
-conventions. Using the 
-Python bindings of these tools allows us to avoid complex Bash scripts and 
-helps us to create a maintainable codebase.
+conventions. By using the 
+Python language and wrappers around these components, we have avoided 
+complex shell scripts and established a maintainable library with a 
+straightforward API. Throughout the code we abundantly exploit standard Python 
+packages, e.g. for date and time arithmetic and multithreading.
 
 The CMOR library rewrites input data according to a set of rules that are 
 encoded in a set of JSON-files, referred to as \emph{CMOR-tables}. These tables 
