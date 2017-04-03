@@ -211,15 +211,15 @@ variables are kept to a minimum. This is important because all information is
 contained in the input tables, which tend to be volatile and will differ for 
 various MIPs studies. Finally we note that a significant speedup has 
 been achieved by optimizing the ordering of the CDO operators for data 
-reduction. A dynamical field will typically be processed using (i) selection 
-criteria for extracting data from the model output, (ii) time aggregation 
-operators mapping to lower time resolution and (iii) a grid projection operator 
-mapping the data to a regular Gaussian grid\footnote{IFS output is usually 
-defined on a reduced Gaussian grid or in a spectral representation}. The latter 
-step is costly for high-resolution 3D fields, but it is a linear operation 
-(matrix multiplication) which commutes with linear time aggregation operators 
-such as averaging. Hence it can often be applied as the last step on the 
-reduced data.
+reduction, to the extent where it leaves the result unchanged. A dynamical 
+field will typically be processed using (i) selection criteria for extracting 
+data from the model output, (ii) time aggregation operators mapping to lower 
+time resolution and (iii) a grid projection operator mapping the data to a 
+regular Gaussian grid\footnote{IFS output is usually defined on a reduced 
+Gaussian grid or in a spectral representation}. The latter step is costly for 
+high-resolution 3D fields, but it is a linear operation (matrix multiplication) 
+which commutes with linear time aggregation operators such as averaging. Hence 
+it can often be applied as the last step on the reduced data.
 
 \section{Benchmark results}
 The result of our effort is the open source python package \texttt{ece2cmor3}, 
