@@ -26,8 +26,8 @@ TODO:
   will have any (considerable) changes in the final processed results. (In other words, is it "safe" to change the
   order?) -> OK
 
-* Page 3, "python" -> "Python"
-* Page 3, "which constitutes" -> "which constitute"
+* Page 3, "python" -> "Python" -> OK
+* Page 3, "which constitutes" -> "which constitute" -> OK
 * Page 3, "intel" -> "Intel" -> OK
 
 
