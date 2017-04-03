@@ -35,7 +35,7 @@ TODO:
 
 ** The figures are incomplete or uninformative. For example, readers unfamiliar with HPC cannot understand which ones in Figure 1 are "GRIB-files" mentioned in Section 2, Line 3. I don't think Figure 2 is needed because it lacks an originality, and because the global distribution of humidity does not relate directly to the scope of this manuscript. It seems that a colorful map unnecessarily dresses the manuscript. Instead, more figures related to the examinations of the benchmark test should be added. The current manuscript only shows Figure 3 for the benchmark test, which is needed but not so interesting.
 
-* Section 4, Line 3: "capable to perform" -> "capable of performing"
+* Section 4, Line 3: "capable to perform" -> "capable of performing" -> OK
 
 ** Main contribution of this paper is to find executable independent tasks directed by the CMOR-table and to execute tasks by appropriate ordering, then to achieve the short execution time. Thus, the key is the algorithms to find the independent tasks and to order those tasks, but the detailed description is omitted. 
 

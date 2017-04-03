@@ -280,13 +280,13 @@ that can be executed on different nodes if further acceleration is needed.
 We have written a package for processing the output of EC-Earth that is 
 flexible, maintainable and achieves a good performance by parallelizing the 
 most time-consuming part of the workload. Our benchmark results show that 
-\texttt{ece2cmor3} is capable to perform its duty in EC-Earth for the upcoming 
-CMIP6 model runs. For the speedup, it would be useful if the atmosphere model 
-is linked to an on-line postprocessing library such as XIOS or some library 
-version of CDO. This will be a necessary step to increase space and time 
-resolutions further in future climate simulations. Such a software component 
-will have to contain highly optimized grid mapping algorithms, and support 
-parallel processing of multiple atmospheric fields.
+\texttt{ece2cmor3} is capable of performing its duty in EC-Earth for the 
+upcoming CMIP6 model runs. For the speedup, it would be useful if the 
+atmosphere model is linked to an on-line postprocessing library such as XIOS or 
+some library version of CDO. This will be a necessary step to increase space 
+and time resolutions further in future climate simulations. Such a software 
+component will have to contain highly optimized grid mapping algorithms, and 
+support parallel processing of multiple atmospheric fields.
 
 
 % As future work we plan to deploy ... on the production clusters
