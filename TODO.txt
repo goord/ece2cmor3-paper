@@ -19,7 +19,8 @@ TODO:
 * At the end of the abstract and also end of Section 1, what does "the improvement in the workload" actually refer to
   later? -> OK
 
-* Page 1, "avoiding a penalty in time and energy consumption" needs a better explanation. While wall-clock time usage will surely be reduced due to parallel post-processing, what is the connection to reduced energy consumption?
+* Page 1, "avoiding a penalty in time and energy consumption" needs a better explanation. While wall-clock time usage
+  will surely be reduced due to parallel post-processing, what is the connection to reduced energy consumption? -> OK
 
 * Page 1, "optimizing the ordering of the CDO operators" should be commented with respect to whether changing the order will have any (considerable) changes in the final processed results. (In other words, is it "safe" to change the order?)
 
