@@ -37,9 +37,12 @@ TODO:
 
 * Section 4, Line 3: "capable to perform" -> "capable of performing" -> OK
 
-** Main contribution of this paper is to find executable independent tasks directed by the CMOR-table and to execute tasks by appropriate ordering, then to achieve the short execution time. Thus, the key is the algorithms to find the independent tasks and to order those tasks, but the detailed description is omitted. 
+** Main contribution of this paper is to find executable independent tasks directed by the CMOR-table and to execute
+tasks by appropriate ordering, then to achieve the short execution time. Thus, the key is the algorithms to find the
+independent tasks and to order those tasks, but the detailed description is omitted. -> OK 
 
-** In the field of treating large-scale dataset like climate science, the thread parallelism gives limited performance because of the size of dataset. You should take into consideration to employ process or hybrid parallel approach.
+** In the field of treating large-scale dataset like climate science, the thread parallelism gives limited performance
+because of the size of dataset. You should take into consideration to employ process or hybrid parallel approach. -> OK
 
 * The letter size of Fig.3 is too small, it is difficult to see.
 

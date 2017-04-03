@@ -268,11 +268,16 @@ processing independent climate fields.}
 The single-threaded version takes 2.5 hours to finish processing a month 
 six-hourly atmosphere data on this system, which is much slower than the 
 simulation itself. By launching 16 worker threads we can achieve a speedup of 
-almost a factor of eight (see Fig.~\ref{fig:speedup}). The scaling behavior can 
-be explained by the finite bandwidth to the temporary storage and the fact that 
-CDO itself has been configured to run four threads per processing task. 
-Eventually we can also partition the workload into multiple chunks of variables 
-that can be executed on different nodes if further acceleration is needed.
+almost a factor of eight (see Fig.~\ref{fig:speedup}). This speedup by 
+multithreading shows that the process is not simply limited by the bandwidth to 
+the storage system, but also by the computationally intensive 
+transformation from variables in the spectral representation 
+to a regular Gaussian grid, especially at high resolution. The scaling behavior 
+can be explained by the finite bandwidth to temporary storage and DRAM, and 
+the fact that CDO itself has been configured to run four threads per processing 
+task. The input data can be trivially split into chunks of variables, and 
+therefore a hybrid approach with multiple processes on different compute nodes 
+can be used if better scaling is needed.
 
 
 \section{Conclusion and Outlook}
@@ -281,13 +286,16 @@ We have written a package for processing the output of EC-Earth that is
 flexible, maintainable and achieves a good performance by parallelizing the 
 most time-consuming part of the workload. Our benchmark results show that 
 \texttt{ece2cmor3} is capable of performing its duty in EC-Earth for the 
-upcoming CMIP6 model runs. For the speedup, it would be useful if the 
-atmosphere model is linked to an on-line postprocessing library such as XIOS or 
-some library version of CDO. This will be a necessary step to increase space 
-and time resolutions further in future climate simulations. Such a software 
-component will have to contain highly optimized grid mapping algorithms, and 
-support parallel processing of multiple atmospheric fields.
+upcoming high-resolution CMIP6 model runs. Futher speedup will be achieved by 
+having the program automatically split up the input variable list into chunks 
+which are processed by different subprocesses.
 
+In the longer term, it will be beneficial to link the atmosphere model to an 
+on-line postprocessing library such as XIOS or some library version of CDO. 
+This will be a necessary step to increase space and time resolutions further in 
+future CMIP-compliant climate simulations with EC-Earth. Moreover, it will be 
+useful to make all atmospheric spectral variables available on the spatial 
+grid, removing the need for expensive spectral transformation altogether.
 
 % As future work we plan to deploy ... on the production clusters
 
