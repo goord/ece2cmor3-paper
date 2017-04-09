@@ -229,15 +229,18 @@ to the EC-Earth trunk as a successor of the existing \texttt{ece2cmor} code.
 For benchmarking we focus upon the post-processing of 37 six-hourly 
 three-dimensional fields (see, e.g., humidity field in Fig.~\ref{fig:hum}), 
 which constitute the bulk of the output data 
-processing time within the PRIMAVERA project~\footnote{The fields are 
-geopotential, temperature, $u$- and $v$-components of wind, vertical velocity, 
-relative humidity, specific humidity and cloud coverage from the IFS 
-component. Various projections upon pressure levels/model levels and 
-various averaging operations make it to 37 post-processing tasks.}.
+processing time within the PRIMAVERA project~\footnote{The atmospheric fields 
+are geopotential, temperature, north- and eastward wind speed, vertical 
+velocity, relative humidity, specific humidity and cloud coverage and cloud 
+liquid water and ice content. Various projections upon pressure levels/model 
+levels and various averaging operations make it to 37 post-processing tasks.}. 
+We have tested this workload on output from the standard resolution model, 
+denoted T255 containing 65792 spectral modes, as well as the high resolution 
+version T511 which has 262656 spectral gridpoints.
   
-A single month of six-hourly data takes 80GB of disk space, whereas the 
-post-processed temporary netCDF files together occupy 68GB. We have run this 
-test on the ECMWF Cray XC40, which consists of Intel Xeon nodes of the 
+A single month of high-resolution six-hourly data takes 80GB of disk space, 
+whereas the post-processed temporary netCDF files together occupy 68GB. We have 
+run this test on the ECMWF Cray XC40, which consists of Intel Xeon nodes of the 
 broadwell generation with 18 physical cores per node and 128GB of DDR4 memory. 
 As temporary storage we use the scratch drive, managed by the parallel LUSTRE 
 file system.
@@ -249,8 +252,7 @@ file system.
    \vspace*{1.5cm}
  \includegraphics[width=1\textwidth]{hur.png}
  \caption{An example of 3D field calculated from CMIP6 models: relative 
-humidity at the bottom model 
-   layer monthly average over January 1990.}
+humidity at the bottom model layer monthly average over January 1990.}
 \label{fig:hum}
 \end{minipage}%
 \hspace{0.6cm}
@@ -258,26 +260,26 @@ humidity at the bottom model
   \centering
  \includegraphics[width=1\textwidth]{speedup_chart.png}
   \vspace*{-0.75cm}
- \caption{Speedup of the post-processing workload with multiple threads 
-processing independent climate fields.}
+ \caption{Speedup of the post-processing workload with multithreading for 
+standard (T255) and high (T511) resolution six-hourly EC-Earth atmosphere 
+output.}
 \label{fig:speedup}
 \end{minipage}
 \end{figure}
 
-
-The single-threaded version takes 2.5 hours to finish processing a month 
-six-hourly atmosphere data on this system, which is much slower than the 
-simulation itself. By launching 16 worker threads we can achieve a speedup of 
-almost a factor of eight (see Fig.~\ref{fig:speedup}). This speedup by 
-multithreading shows that the process is not simply limited by the bandwidth to 
-the storage system, but also by the computationally intensive 
-transformation from variables in the spectral representation 
-to a regular Gaussian grid, especially at high resolution. The scaling behavior 
-can be explained by the finite bandwidth to temporary storage and DRAM, and 
-the fact that CDO itself has been configured to run four threads per processing 
-task. The input data can be trivially split into chunks of variables, and 
-therefore a hybrid approach with multiple processes on different compute nodes 
-can be used if better scaling is needed.
+The single-threaded version takes respectively 1 and 2.5 hours to finish 
+processing a month of respectively standard and high resolution model output, 
+which is slower than the simulation itself. By launching 16 worker threads 
+we can achieve a speedup of almost a factor of eight (see 
+Fig.~\ref{fig:speedup}). This speedup by multithreading shows that the process 
+is not simply limited by the bandwidth to the storage system, but also by the 
+computationally intensive transformation from variables in the spectral 
+representation to a regular Gaussian grid. The less than ideal scaling 
+behavior can be explained by the finite bandwidth to temporary storage and 
+DRAM, and the fact that CDO itself has been configured to run four threads per 
+processing task. The input data can be trivially split into chunks of 
+variables, and therefore a hybrid approach with multiple processes on different 
+compute nodes can be used if better scaling is needed.
 
 
 \section{Conclusion and Outlook}
