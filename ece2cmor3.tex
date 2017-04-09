@@ -112,8 +112,8 @@ explore dynamical systems at higher spatial and temporal resolutions, while
 avoiding a penalty in time and energy consumption. For example, it is feasible 
 to let coupled atmospheric-ocean models simulate 100 years of climate evolution 
 at a resolution of about 10 km, as is currently carried out within the 
-PRIMAVERA joint effort \cite{PRIMAVERA} by various climate modeling groups, 
-among which the EC-Earth consortium.
+PRIMAVERA joint effort~\cite{PRIMAVERA} %\footnotetext{This project has been partially funded by??} 
+by various climate modeling groups, among which the EC-Earth consortium.
 
 % To that end, they produce an enormous 
 % amount of data which makes its processing challenging.
@@ -127,9 +127,9 @@ interpolating such data onto a new grid.
 % Why: The post-processing is important for the science because...
 Nonetheless it often remains preferred to have a separate post-processing step 
 to keep the high-frequency model output on the original grid accessible for 
-further studies\footnote{This could be also achieved by a library aggregating 
+further studies. (This could be also achieved by a library aggregating 
 the data in memory during the model run, but this functionality is absent in 
-the atmosphere model in EC-Earth.}. Indeed, many climate models have their 
+the atmosphere model in EC-Earth.) Indeed, many climate models have their 
 observational and analysis data output post-processed into so-called CMIP 
 standardized format such that it can be used for comparison with climate models 
 in
@@ -247,7 +247,7 @@ Broadwell generation with 18 physical cores per node and 128GB of DDR4 memory.
 As temporary storage we use the scratch drive, managed by the parallel LUSTRE 
 file system.
 
-\begin{figure}[h]
+\begin{figure}[!t]
 \centering
 \begin{minipage}[b]{.45\textwidth}
   \centering
