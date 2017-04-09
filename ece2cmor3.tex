@@ -155,6 +155,14 @@ number of parallel threads.
 
 \section{Design}
 
+\begin{figure}[b!]
+ \centering
+ \includegraphics[width=\textwidth,clip]{ece2cmor3flowv3.png}
+ \caption{Graph of the data flow in the ece2cmor3 program. The parallelized 
+processing is highlighted in the violet box.}
+\label{fig:design}
+\end{figure}
+
 In this section we describe the tools and components that 
 are part of our parallel post-processing tool. Figure~\ref{fig:design} 
 summarizes the data flow in \texttt{ece2cmor3}. 
@@ -198,13 +206,7 @@ The software supports chunking the tasks to limit the amount of disk space used
 by these temporary files. We use Python's standard threading package for the 
 parallel execution of the worker threads.
 
-\begin{figure}[ht]
- \centering
- \includegraphics[width=\textwidth,clip]{ece2cmor3flowv3.png}
- \caption{Graph of the data flow in the ece2cmor3 program. The parallelized 
-processing is highlighted in the violet box.}
-\label{fig:design}
-\end{figure}
+
 
 Throughout the code, hard-coded assumptions about the nature of the resulting 
 variables are kept to a minimum. This is important because all information is 
@@ -241,7 +243,7 @@ version T511 which has 262656 spectral gridpoints.
 A single month of high-resolution six-hourly data takes 80GB of disk space, 
 whereas the post-processed temporary netCDF files together occupy 68GB. We have 
 run this test on the ECMWF Cray XC40, which consists of Intel Xeon nodes of the 
-broadwell generation with 18 physical cores per node and 128GB of DDR4 memory. 
+Broadwell generation with 18 physical cores per node and 128GB of DDR4 memory. 
 As temporary storage we use the scratch drive, managed by the parallel LUSTRE 
 file system.
 
@@ -288,7 +290,7 @@ We have written a package for processing the output of EC-Earth that is
 flexible, maintainable and achieves a good performance by parallelizing the 
 most time-consuming part of the workload. Our benchmark results show that 
 \texttt{ece2cmor3} is capable of performing its duty in EC-Earth for the 
-upcoming high-resolution CMIP6 model runs. Futher speedup will be achieved by 
+upcoming high-resolution CMIP6 model runs. Further speedup will be achieved by 
 having the program automatically split up the input variable list into chunks 
 which are processed by different subprocesses.
 
