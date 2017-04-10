@@ -112,7 +112,7 @@ explore dynamical systems at higher spatial and temporal resolutions, while
 avoiding a penalty in time and energy consumption. For example, it is feasible 
 to let coupled atmospheric-ocean models simulate 100 years of climate evolution 
 at a resolution of about 10 km, as is currently carried out within the 
-PRIMAVERA joint effort~\cite{PRIMAVERA} %\footnotetext{This project has been partially funded by??} 
+PRIMAVERA joint effort~\cite{PRIMAVERA} 
 by various climate modeling groups, among which the EC-Earth consortium.
 
 % To that end, they produce an enormous 
@@ -157,9 +157,9 @@ number of parallel threads.
 
 \begin{figure}[b!]
  \centering
- \includegraphics[width=\textwidth,clip]{ece2cmor3flowv3.png}
  \caption{Graph of the data flow in the ece2cmor3 program. The parallelized 
-processing is highlighted in the violet box.}
+processing is highlighted in the violet box.} 
+ \includegraphics[width=0.8\textwidth,clip]{ece2cmor3flowv3.png}
 \label{fig:design}
 \end{figure}
 
@@ -168,7 +168,7 @@ are part of our parallel post-processing tool. Figure~\ref{fig:design}
 summarizes the data flow in \texttt{ece2cmor3}. 
 % 
 The EC-Earth model output for the PRIMAVERA runs consist of GRIB-files produced 
-by the atmosphere component, the Integrated Forecasting System (IFS), and 
+by the atmosphere component, the Integrated Forecasting System (IFS)~\cite{IFS}, and 
 netCDF files produced by the coupled ocean model NEMO~\cite{NEMO}. The latter 
 component 
 contains an online post-processing capability, provided by the XIOS library. 
@@ -177,7 +177,7 @@ atmospheric output is post-processed with existing technology, the widely used
 Climate Data Operators (CDO)~\cite{CDO} to produce netCDF files for all 
 requested 
 variables. After this step, all variables are extracted from netCDF and sent to 
-the CMOR3 library \cite{CMOR} which handles the reformatting to CMIP 
+the CMOR3 library \cite{CMOR-doi} which handles the reformatting to CMIP 
 conventions. By using the 
 Python language and wrappers around these components, we have avoided 
 complex shell scripts and established a maintainable library with a 
@@ -206,9 +206,7 @@ The software supports chunking the tasks to limit the amount of disk space used
 by these temporary files. We use Python's standard threading package for the 
 parallel execution of the worker threads.
 
-
-
-Throughout the code, hard-coded assumptions about the nature of the resulting 
+Hard-coded assumptions in the code about the nature of the resulting 
 variables are kept to a minimum. This is important because all information is 
 contained in the input tables, which tend to be volatile and will differ for 
 various MIPs studies. Finally we note that a significant speedup has 
@@ -270,7 +268,7 @@ output.}
 \end{figure}
 
 The single-threaded version takes respectively 1 and 2.5 hours to finish 
-processing a month of respectively standard and high resolution model output, 
+processing a month of respectively standard and high resolution model output,
 which is slower than the simulation itself. By launching 16 worker threads 
 we can achieve a speedup of almost a factor of eight (see 
 Fig.~\ref{fig:speedup}). This speedup by multithreading shows that the process 
@@ -289,19 +287,24 @@ compute nodes can be used if better scaling is needed.
 We have written a package for processing the output of EC-Earth that is 
 flexible, maintainable and achieves a good performance by parallelizing the 
 most time-consuming part of the workload. Our benchmark results show that 
-\texttt{ece2cmor3} is capable of performing its duty in EC-Earth for the 
+\texttt{ece2cmor3} can perform its duty in EC-Earth for the 
 upcoming high-resolution CMIP6 model runs. Further speedup will be achieved by 
 having the program automatically split up the input variable list into chunks 
-which are processed by different subprocesses.
-
-In the longer term, it will be beneficial to link the atmosphere model to an 
+which are processed by different subprocesses. 
+%
+In the longer term, one can link the atmosphere model to an 
 on-line postprocessing library such as XIOS or some library version of CDO. 
-This will be a necessary step to increase space and time resolutions further in 
+This is a necessary step to increase space and time resolutions further in 
 future CMIP-compliant climate simulations with EC-Earth. Moreover, it will be 
 useful to make all atmospheric spectral variables available on the spatial 
 grid, removing the need for expensive spectral transformation altogether.
 
 % As future work we plan to deploy ... on the production clusters
+
+\vspace{-0.5cm}
+\paragraph{Acknowledgements} 
+This work has been funded by the European Union's Horizon 2020 research programme 
+under Grant Agreement 641727.
 
 %------------------------------------------------------------------------------
 % Refs:
